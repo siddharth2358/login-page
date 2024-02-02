@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const phoneNumber = document.getElementById('phoneNumber').value;
         const Qualification = document.getElementById('Qualification').value;
         const NativePlace = document.getElementById('NativePlace').value.split(',').map(item => item.trim()); // Convert NativePlace to an array
-        const termsCheckbox = document.getElementById('terms');
+
 
         
         if (
@@ -30,9 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
             !validatePhoneNumber(phoneNumber) ||
             !validateQualification(Qualification) ||
             !validateNativePlace(NativePlace) ||
-            !termsCheckbox.checked
-        ) {
-            alert('Please fill in all the required fields correctly and accept the terms & conditions.');
+            
+        ) 
         } else {
             // You can submit the form or perform other actions here
             alert('Registration successful!');
