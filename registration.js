@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
             !validateEmail(email) ||
             !validatePassword(password) ||
             !validateConfirmPassword(password, confirmPassword) ||
-            !validateFirstName(Firstname) ||
-            !validateLastName(Lastname) ||
+            !validateFirstName(FirstName) ||
+            !validateLastName(LastName) ||
             !validateAge(Age) ||
             !validatePhoneNumber(phoneNumber) ||
             !validateQualification(Qualification) ||
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return true;
     }
      
-    function validatePhoneNumber(phoneNumber) {
+    function validatephoneNumber(phoneNumber) {
         // Phone number validation for Indian format /^[6-9]\d{9}$/
         const regex = /^[6-9]\d{9}$/;
 
