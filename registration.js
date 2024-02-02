@@ -1,174 +1,159 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('form');
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        validateForm();
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
+  
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+  
+      // Validate username
+      const usernameInput = document.getElementById("Username");
+      const username = usernameInput.value;
+  
+      if (!isValidUsername(username)) {
+        alert("Username must be alphanumeric and between 3 and 20 characters");
+        return;
+      }
+  
+      // Validate email
+      const emailInput = document.getElementById("email");
+      const email = emailInput.value;
+  
+      if (!isValidEmail(email)) {
+        alert("Please enter a valid email address");
+        return;
+      }
+  
+      // Validate password and confirmPassword
+      const passwordInput = document.getElementById("password");
+      const confirmPasswordInput = document.getElementById("ConfirmPassword");
+      const password = passwordInput.value;
+      const confirmPassword = confirmPasswordInput.value;
+  
+      if (!isValidPassword(password)) {
+        alert("Password must be at least 8 characters long and include both letters and numbers");
+        return;
+      }
+  
+      if (password !== confirmPassword) {
+        alert("Password and Confirm Password do not match");
+        return;
+      }
+  
+      // Validate First Name
+      const fnameInput = document.getElementById("Fname");
+      const fname = fnameInput.value;
+  
+      if (!isValidName(fname)) {
+        alert("First Name must contain only letters and be between 2 and 30 characters");
+        return;
+      }
+  
+      // Validate Last Name
+      const lnameInput = document.getElementById("Lname");
+      const lname = lnameInput.value;
+  
+      if (!isValidName(lname)) {
+        alert("Last Name must contain only letters and be between 2 and 30 characters");
+        return;
+      }
+  
+      // Validate Age
+      const ageInput = document.getElementById("age");
+      const age = ageInput.value;
+  
+      if (!isValidAge(age)) {
+        alert("Please enter a valid age between 18 and 75");
+        return;
+      }
+  
+      // Validate Phone Number
+      const phoneNumberInput = document.getElementById("phoneNumber");
+      const phoneNumber = phoneNumberInput.value;
+  
+      if (!isValidPhoneNumber(phoneNumber)) {
+        alert("Please enter a valid Indian phone number");
+        return;
+      }
+  
+      // Validate Qualification
+      const qualificationInput = document.getElementById("Qualification");
+      const qualification = qualificationInput.value;
+  
+      if (!isValidQualification(qualification)) {
+        alert("Qualification must be between 2 and 50 characters");
+        return;
+      }
+  
+      // Validate Native Place
+      const nativePlaceInput = document.getElementById("Nativeplace");
+      const nativePlace = nativePlaceInput.value;
+  
+      if (!isValidNativePlace(nativePlace)) {
+        alert("Native Place must be between 2 and 50 characters");
+        return;
+      }
+  
+      // Validate Terms and Conditions
+      const termsCheckbox = document.getElementById("terms");
+  
+      if (!termsCheckbox.checked) {
+        alert("Please agree to the terms and conditions");
+        return;
+      }
+  
+      // ... (other validations and form submission logic)
+  
+      alert("Registration successful!");
     });
-
-    function validateForm() {
-        const username = document.getElementById('Username').value;
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('ConfirmPassword').value;
-        const email = document.getElementById('email').value;
-        const fname = document.getElementById('Fname').value;
-        const lname = document.getElementById('Lname').value;
-        const phoneNumber = document.getElementById('phoneNumber').value;
-        const age = document.getElementById('age').value;
-        const profession = document.getElementById('proffesion').value;
-        const hobbies = document.getElementById('hobbies').value.split(',').map(item => item.trim()); // Convert hobbies to an array
-        const termsCheckbox = document.getElementById('terms');
-
-        
-        if (
-            !validateUsername(username) ||
-            !validatePassword(password) ||
-            !validateConfirmPassword(password, confirmPassword) ||
-            !validateEmail(email) ||
-            !validateFirstName(fname) ||
-            !validateLastName(lname) ||
-            !validatePhoneNumber(phoneNumber) ||
-            !validateAge(age) ||
-            !validateQualification(Qualification) ||
-            !validateNativeplace(Nativeplace) ||
-            !termsCheckbox.checked
-        ) {
-            alert('Please fill in all the required fields correctly and accept the terms & conditions.');
-        } else {
-            // You can submit the form or perform other actions here
-            alert('Registration successful!');
-            
-            // form.submit();
-        }
+  
+    // Function to validate username
+    function isValidUsername(username) {
+      const alphanumericRegex = /^[a-zA-Z0-9]+$/;
+      return alphanumericRegex.test(username) && username.length >= 3 && username.length <= 20;
     }
-
-    function validateUsername(username) {
-        // Username should have a minimum of 5 characters and a maximum of 15 characters
-        const minLength = 5;
-        const maxLength = 15;
-
-        if (username.length < minLength || username.length > maxLength) {
-            alert('Username must be between 5 and 15 characters.');
-            return false;
-        }
-
-        
-
-        return true;
+  
+    // Function to validate email
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
     }
-
-    function validatePassword(password) {
-        // Password should have a minimum of 8 characters
-        const minLength = 8;
-
-        // Password should contain at least one uppercase, one lowercase, one number, and one special character
-        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/;
-
-        if (password.length < minLength || !regex.test(password)) {
-            alert('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
-            return false;
-        }
-
-        return true;
+  
+    // Function to validate password
+    function isValidPassword(password) {
+      // Password must be at least 8 characters long and include both letters and numbers
+      const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
+      return passwordRegex.test(password);
     }
-
-    function validateConfirmPassword(password, confirmPassword) {
-        if (password !== confirmPassword) {
-            alert('Password and Confirm Password must match.');
-            return false;
-        }
-
-        return true;
+  
+    // Function to validate name (First Name and Last Name)
+    function isValidName(name) {
+      const nameRegex = /^[a-zA-Z]+$/;
+      return nameRegex.test(name) && name.length >= 2 && name.length <= 30;
     }
-
-    function validateEmail(email) {
-        // Email validation using a simple regex pattern
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!emailRegex.test(email)) {
-            alert('Please enter a valid email address.');
-            return false;
-        }
-
-        return true;
+  
+    // Function to validate age
+    function isValidAge(age) {
+      // Age must be between 18 and 75
+      const ageRegex = /^(1[8-9]|[2-6][0-9]|7[0-5])$/;
+      return ageRegex.test(age);
     }
-
-    function validateFirstName(fname) {
-        // First name should have a minimum of 5 characters, a maximum of 15 characters, and contain only alphabets
-        const minLength = 5;
-        const maxLength = 15;
-        const alphabetRegex = /^[a-zA-Z]+$/;
-
-        if (fname.length < minLength || fname.length > maxLength || !alphabetRegex.test(fname)) {
-            alert('First name must be between 5 and 15 characters and contain only alphabets.');
-            return false;
-        }
-
-        return true;
+  
+    // Function to validate Indian phone number
+    function isValidPhoneNumber(phoneNumber) {
+      // Indian phone number format (10 digits starting with 7, 8, or 9)
+      const phoneRegex = /^[789]\d{9}$/;
+      return phoneRegex.test(phoneNumber);
     }
-
-    function validateLastName(lname) {
-        // Last name should have a minimum of 5 characters, a maximum of 15 characters, and contain only alphabets
-        const minLength = 5;
-        const maxLength = 15;
-        const alphabetRegex = /^[a-zA-Z]+$/;
-
-        if (lname.length < minLength || lname.length > maxLength || !alphabetRegex.test(lname)) {
-            alert('Last name must be between 5 and 15 characters and contain only alphabets.');
-            return false;
-        }
-
-        return true;
+  
+    // Function to validate qualification
+    function isValidQualification(qualification) {
+      // Qualification must be between 2 and 50 characters
+      return qualification.length >= 2 && qualification.length <= 50;
     }
-
-    function validatePhoneNumber(phoneNumber) {
-        // Phone number validation for Indian format /^[6-9]\d{9}$/
-        const regex = /^[6-9]\d{9}$/;
-
-        if (!regex.test(phoneNumber)) {
-            alert('Please enter a valid Indian phone number.');
-            return false;
-        }
-
-        return true;
+  
+    // Function to validate native place
+    function isValidNativePlace(nativePlace) {
+      // Native Place must be between 2 and 50 characters
+      return nativePlace.length >= 2 && nativePlace.length <= 50;
     }
-
-    function validateAge(age) {
-        // Age should be a number between 12 and 75
-        const minAge = 12;
-        const maxAge = 75;
-
-        if (isNaN(age) || age < minAge || age > maxAge) {
-            alert('Please enter a valid age between 12 and 75.');
-            return false;
-        }
-
-        return true;
-    }
-
-    function validateQualification(Qualification) {
-        // Qualification should have a minimum of 5 characters, a maximum of 30 characters, and contain only alphabets and commas
-        const minLength = 5;
-        const maxLength = 30;
-        const alphabetAndCommaRegex = /^[a-zA-Z,]+$/;
-
-        if (Qualification.length < minLength || Qualification.length > maxLength || !alphabetAndCommaRegex.test(Qualification)) {
-            alert('Qualification must be between 5 and 30 characters and contain only alphabets and commas.');
-            return false;
-        }
-
-        return true;
-    }
-
-    function validateNativeplace(Nativeplace) {
-        // Nativeplace should be an array with a minimum of 1 item and a maximum of 5 items, allowing only alphabets
-        const minLength = 5;
-        const maxLength = 30;
-        const alphabetAndCommaRegex = /^[a-zA-Z,]+$/;
-
-        if (Nativeplace.length < minLength ||Nativeplace.length > maxLength || !alphabetAndCommaRegex.test(Nativeplace)) {
-            alert('Nativeplace must be between 5 and 30 characters and contain only alphabets and commas.');
-            return false;
-        }
-        return true;
-    }
-});
+  });
+  
