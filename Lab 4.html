@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<body>
+    <h2>Calculator</h2>
+    
+    <label for="num1">Enter Number 1:</label>
+    <input type="text" id="num1" />
+
+    <label for="num2">Enter Number 2:</label>
+    <input type="text" id="num2" />
+
+    <button onclick="calculate('addition')">Addition</button>
+    <button onclick="calculate('subtraction')">Subtraction</button>
+    <button onclick="calculate('multiplication')">Multiplication</button>
+    <button onclick="calculate('division')">Division</button>
+
+    <h3>Result:</h3>
+    <input type="text" id="result" readonly />
+
+    <script>
+        function calculate(operation) {
+            // Get values from input boxes
+            var num1 = parseFloat(document.getElementById('num1').value);
+            var num2 = parseFloat(document.getElementById('num2').value);
+
+            // Check if the input is valid
+            if (isNaN(num1) || isNaN(num2)) {
+                alert('Please enter valid numbers.');
+                return;
+            }
+
+            // Calculate based on the operation
+            switch (operation) {
+                case 'addition':
+                    document.getElementById('result').value = num1 + num2;
+                    break;
+                case 'subtraction':
+                    document.getElementById('result').value = num1 - num2;
+                    break;
+                case 'multiplication':
+                    document.getElementById('result').value = num1 * num2;
+                    break;
+                case 'division':
+                    // Check if the second number is not zero for division
+                    if (num2 !== 0) {
+                        document.getElementById('result').value = num1 / num2;
+                    } else {
+                        document.getElementById('result').value = 'Undefined (Division by zero)';
+                    }
+                    break;
+                default:
+                    alert('Invalid operation');
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Current Date Format</title>
+<script>
+function getCurrentDate() {
+    let currentDate = new Date();
+    
+    let mm = String(currentDate.getMonth() + 1).padStart(2, '0'); // Month (01-12)
+    let dd = String(currentDate.getDate()).padStart(2, '0'); // Day (01-31)
+    let yyyy = currentDate.getFullYear(); // Year (e.g., 2024)
+
+    let mm_dd_yyyy = mm + '-' + dd + '-' + yyyy; // Format: mm-dd-yyyy
+    let mm_slash_dd_slash_yyyy = mm + '/' + dd + '/' + yyyy; // Format: mm/dd/yyyy
+    let dd_mm_yyyy = dd + '-' + mm + '-' + yyyy; // Format: dd-mm-yyyy
+    let dd_slash_mm_slash_yyyy = dd + '/' + mm + '/' + yyyy; // Format: dd/mm/yyyy
+    
+    document.getElementById('mm_dd_yyyy').value = mm_dd_yyyy;
+    document.getElementById('mm_slash_dd_slash_yyyy').value = mm_slash_dd_slash_yyyy;
+    document.getElementById('dd_mm_yyyy').value = dd_mm_yyyy;
+    document.getElementById('dd_slash_mm_slash_yyyy').value = dd_slash_mm_slash_yyyy;
+}
+
+window.onload = getCurrentDate;
+</script>
+</head>
+<body>
+<h1>Current Date in Different Formats</h1>
+<label for="mm_dd_yyyy">mm-dd-yyyy:</label>
+<input type="text" id="mm_dd_yyyy" readonly><br><br>
+
+<label for="mm_slash_dd_slash_yyyy">mm/dd/yyyy:</label>
+<input type="text" id="mm_slash_dd_slash_yyyy" readonly><br><br>
+
+<label for="dd_mm_yyyy">dd-mm-yyyy:</label>
+<input type="text" id="dd_mm_yyyy" readonly><br><br>
+
+<label for="dd_slash_mm_slash_yyyy">dd/mm/yyyy:</label>
+<input type="text" id="dd_slash_mm_slash_yyyy" readonly>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check checkMultiples</title>
+  <script>
+    function checkMultiples(number) {
+      if (number <= 0) {
+        return "Please enter a positive number.";
+      }
+
+      var isMultipleOf3 = number % 3 === 0;
+      var isMultipleOf7 = number % 7 === 0;
+
+      if (isMultipleOf3 && isMultipleOf7) {
+        return number + " is a multiple of both 3 and 7.";
+      } else if (isMultipleOf3) {
+        return number + " is a multiple of 3.";
+      } else if (isMultipleOf7) {
+        return number + " is a multiple of 7.";
+      } else {
+        return number + " is not a multiple of 3 or 7.";
+      }
+    }
+  </script>
+</head>
+<body>
+  <h2>Check multiples of 3 or 7 or Both</h2>
+  <label for="numberInput">Enter a positive number:</label>
+  <input type="number" id="numberInput" min="1">
+  <button onclick="checkAndDisplay()">Check</button>
+  <p id="result"></p>
+
+  <script>
+    function checkAndDisplay() {
+      var numberInput = document.getElementById("numberInput").value;
+      var resultElement = document.getElementById("result");
+      resultElement.innerText = checkMultiples(parseInt(numberInput));
+    }
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Number to Words convert </title>
+<script>
+function convertToWords() {
+    // Retrieve the input value
+    let number = document.getElementById('numberInput').value;
+
+    // Convert the input to an integer
+    number = parseInt(number);
+
+    // Check if the input is within the range of 0 to 999
+    if (number < 0 || number > 999 || isNaN(number)) {
+        document.getElementById('result').innerText = "Please enter a number between 0 and 999.";
+        return;
+    }
+
+    // Arrays for words representation
+    let ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    let teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+    let tens = ['', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+    let thousands = ['', 'thousand', 'million', 'billion', 'trillion'];
+
+    // Function to convert hundreds
+    function convertHundreds(num) {
+        if (num >= 100) {
+            return ones[Math.floor(num / 100)] + " hundred " + convertTens(num % 100);
+        } else {
+            return convertTens(num);
+        }
+    }
+
+    // Function to convert tens and ones
+    function convertTens(num) {
+        if (num < 10) return ones[num];
+        else if (num >= 10 && num < 20) return teens[num - 10];
+        else {
+            return tens[Math.floor(num / 10)] + " " + ones[num % 10];
+        }
+    }
+
+    // Function to convert the number to words
+    function convertNumberToWords(num) {
+        if (num === 0) return "zero";
+        let word = '';
+        for (let i = 0; i < thousands.length; i++) {
+            if (num % 1000 !== 0) {
+                word = convertHundreds(num % 1000) + thousands[i] + " " + word;
+            }
+            num = Math.floor(num / 1000);
+        }
+        return word.trim();
+    }
+
+    // Convert the number to words
+    let words = convertNumberToWords(number);
+
+    // Display the result
+    document.getElementById('result').innerText = words;
+}
+</script>
+</head>
+<body>
+<h1>Number to Words</h1>
+<label for="numberInput">Enter a number (0 - 999):</label>
+<input type="text" id="numberInput" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/g, '');"><br><br>
+<button onclick="convertToWords()">Convert</button>
+<div id="result"></div>
+</body>
+</html>
+
+
+
