@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<body>
+    <h2>Calculator</h2>
+    
+    <label for="num1">Enter Number 1:</label>
+    <input type="text" id="num1" />
+
+    <label for="num2">Enter Number 2:</label>
+    <input type="text" id="num2" />
+
+    <button onclick="calculate('addition')">Addition</button>
+    <button onclick="calculate('subtraction')">Subtraction</button>
+    <button onclick="calculate('multiplication')">Multiplication</button>
+    <button onclick="calculate('division')">Division</button>
+
+    <h3>Result:</h3>
+    <input type="text" id="result" readonly />
+
+    <script>
+        function calculate(operation) {
+            // Get values from input boxes
+            var num1 = parseFloat(document.getElementById('num1').value);
+            var num2 = parseFloat(document.getElementById('num2').value);
+
+            // Check if the input is valid
+            if (isNaN(num1) || isNaN(num2)) {
+                alert('Please enter valid numbers.');
+                return;
+            }
+
+            // Calculate based on the operation
+            switch (operation) {
+                case 'addition':
+                    document.getElementById('result').value = num1 + num2;
+                    break;
+                case 'subtraction':
+                    document.getElementById('result').value = num1 - num2;
+                    break;
+                case 'multiplication':
+                    document.getElementById('result').value = num1 * num2;
+                    break;
+                case 'division':
+                    // Check if the second number is not zero for division
+                    if (num2 !== 0) {
+                        document.getElementById('result').value = num1 / num2;
+                    } else {
+                        document.getElementById('result').value = 'Undefined (Division by zero)';
+                    }
+                    break;
+                default:
+                    alert('Invalid operation');
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
